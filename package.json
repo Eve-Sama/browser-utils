@@ -1,0 +1,32 @@
+{
+  "name": "custom-clear-dom",
+  "version": "0.0.1",
+  "description": "A browser extension that allow you delete any DOM's you want",
+  "main": "index.js",
+  "author": "Eve",
+  "license": "MIT",
+  "scripts": {
+    "start": "gulp start",
+    "copy": "gulp copy"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.120",
+    "@types/gulp": "4.0.3",
+    "@types/jquery": "^3.5.0",
+    "@types/node": "^14.0.5",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^4.0.1",
+    "gulp-load-plugins": "^2.0.3",
+    "gulp-newer": "^1.4.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "less": "^3.12.2",
+    "ts-node": "~8.3.0",
+    "tslint": "~5.19.0",
+    "typescript": "^3.9.6"
+  }
+}
