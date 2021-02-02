@@ -4,14 +4,14 @@
   "version": "0.0.1",
   "description": "A extension that contains common function for browser",
   "browser_action": {
-    "default_icon": "dist/images/48x48.png",
+    "default_icon": "images/48x48.png",
     "default_title": "Browser Utils",
-    "default_popup": "dist/pages/popup/popup.html"
+    "default_popup": "pages/popup/popup.html"
   },
   "icons": {
-    "16": "dist/images/16x16.png",
-    "48": "dist/images/48x48.png",
-    "128": "dist/images/128x128.png"
+    "16": "images/16x16.png",
+    "48": "images/48x48.png",
+    "128": "images/128x128.png"
   },
   "commands": {
     "showFunctions": {
@@ -21,17 +21,17 @@
   },
   "permissions": ["tabs"],
   "web_accessible_resources": [
-    "dist/pages/function-list/function-list.html"
+    "pages/function-list/function-list.html"
   ],
   "background": {
-    "page": "dist/pages/background/background.html"
+    "page": "pages/background/background.html"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
-        "node_modules/jquery/dist/jquery.min.js",
-        "dist/content-script/content-script.js"
+        "lib/jquery.min.js",
+        "content-script/content-script.js"
       ]
     }
   ]
