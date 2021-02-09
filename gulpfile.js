@@ -2,6 +2,10 @@
 const { task, src, dest, watch, series, parallel } = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const mode = process.env.mode;
+const tsconfig = {
+  module: 'esnext',
+  target: 'es5'
+};
 
 /** remove dist */
 function clean() {
@@ -12,7 +16,7 @@ function clean() {
 function createContentScript() {
   return src('./dev/content-script/*.ts')
     .pipe(plugins.newer('./dist'))
-    .pipe(plugins.typescript())
+    .pipe(plugins.typescript(tsconfig))
     .pipe(plugins.concat('content-script/content-script.js'))
     .pipe(plugins.if(mode === 'production', plugins.uglify()))
     .pipe(dest('./dist'));
@@ -27,7 +31,7 @@ function createImage() {
 function createPageJS() {
   return src('./dev/pages/**/*.ts')
     .pipe(plugins.newer('./dist'))
-    .pipe(plugins.typescript())
+    .pipe(plugins.typescript(tsconfig))
     .pipe(plugins.if(mode === 'production', plugins.uglify()))
     .pipe(dest('./dist/pages'));
 }
