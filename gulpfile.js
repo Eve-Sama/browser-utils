@@ -56,34 +56,40 @@ function createPageHTML() {
 }
 
 function createLib() {
-  src('./node_modules/jquery/dist/jquery.min.js').pipe(dest('./dist/lib'));
-  return src('./node_modules/jquery/dist/jquery.slim.min.js').pipe(dest('./dist/lib'));
+  return src(['./node_modules/jquery/dist/jquery.min.js', './node_modules/jquery/dist/jquery.slim.min.js']).pipe(dest('./dist/lib'));
 }
 
 function createManifest() {
   return src('./manifest.json').pipe(dest('./dist'));
 }
 
-function end(cb) {
-  if (mode === 'development') {
-    setTimeout(() => console.log('\033[42;30m DONE \033[40;32m Compiled successfully, enjoy coding~\033[0m'));
-  } else if (mode === 'production') {
-    setTimeout(() => console.log('\033[42;30m DONE \033[40;32m Build successfully, enjoy deploying~\033[0m'));
-  }
-  cb();
+function showMessage(type) {
+  return function message(cb) {
+    // Use timer ensure console shows in the end
+    switch (type) {
+      case 'development':
+        setTimeout(() => console.log('\033[42;30m DONE \033[40;32m Compiled successfully, enjoy coding~\033[0m'));
+        break;
+      case 'production':
+        setTimeout(() => console.log('\033[42;30m DONE \033[40;32m Build successfully, enjoy deploying~\033[0m'));
+        break;
+      case 'watch':
+        setTimeout(() => console.log('\033[42;30m DONE \033[40;32m Compiled successfully, keep coding~\033[0m'));
+        break;
+    }
+    cb();
+  };
 }
 
 function watcher(cb) {
-  function doWatch(cb) {
-    watch('./dev/content-script/**/*.ts', createContentScript);
+  if (mode === 'development') {
+    watch('./dev/content-script/**/*.ts', series(createContentScript, showMessage('watch')));
     watch('./dev/images/*.*', createImage);
     watch('./dev/pages/**/*.ts', createPageJS);
     watch('./dev/pages/**/*.less', createPageCSS);
     watch('./dev/pages/**/*.html', createPageHTML);
     watch('./manifest.json', createManifest);
-    cb();
   }
-  plugins.if(mode === 'development', doWatch);
   cb();
 }
 
@@ -93,6 +99,6 @@ task(
     clean,
     parallel(createContentScript, createPageJS, createImage, createPageHTML, createPageCSS, createLib, createManifest),
     watcher,
-    end,
+    showMessage(mode)
   )
 );
