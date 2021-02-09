@@ -14,7 +14,7 @@ function clean() {
 
 /** Compile mutiple ts files and into one file */
 function createContentScript() {
-  return src('./dev/content-script/*.ts')
+  return src('./src/content-script/*.ts')
     .pipe(plugins.newer('./dist'))
     .pipe(plugins.typescript(tsconfig))
     .pipe(plugins.concat('content-script/content-script.js'))
@@ -24,12 +24,12 @@ function createContentScript() {
 
 /** Copy images from pages to dist*/
 function createImage() {
-  return src('./dev/images/*.*').pipe(plugins.newer('./dist')).pipe(dest('./dist/images'));
+  return src('./src/images/*.*').pipe(plugins.newer('./dist')).pipe(dest('./dist/images'));
 }
 
 /** Compile ts under pages*/
 function createPageJS() {
-  return src('./dev/pages/**/*.ts')
+  return src('./src/pages/**/*.ts')
     .pipe(plugins.newer('./dist'))
     .pipe(plugins.typescript(tsconfig))
     .pipe(plugins.if(mode === 'production', plugins.uglify()))
@@ -38,7 +38,7 @@ function createPageJS() {
 
 /** Compile less under pages*/
 function createPageCSS() {
-  return src('./dev/pages/**/*.less')
+  return src('./src/pages/**/*.less')
     .pipe(plugins.newer('./dist'))
     .pipe(plugins.less({ outputStyle: 'compressed' }))
     .pipe(
@@ -53,7 +53,7 @@ function createPageCSS() {
 
 /** Copy html from pages to dist*/
 function createPageHTML() {
-  return src('./dev/pages/**/*.html')
+  return src('./src/pages/**/*.html')
     .pipe(plugins.newer('./dist'))
     .pipe(plugins.if(mode === 'production', plugins.htmlmin({ collapseWhitespace: true })))
     .pipe(dest('./dist/pages'));
@@ -87,11 +87,11 @@ function showMessage(type) {
 
 function watcher(cb) {
   if (mode === 'development') {
-    watch('./dev/content-script/**/*.ts', series(createContentScript, showMessage('watch')));
-    watch('./dev/images/*.*', series(createImage, showMessage('watch')));
-    watch('./dev/pages/**/*.ts', series(createPageJS, showMessage('watch')));
-    watch('./dev/pages/**/*.less', series(createPageCSS, showMessage('watch')));
-    watch('./dev/pages/**/*.html', series(createPageHTML, showMessage('watch')));
+    watch('./src/content-script/**/*.ts', series(createContentScript, showMessage('watch')));
+    watch('./src/images/*.*', series(createImage, showMessage('watch')));
+    watch('./src/pages/**/*.ts', series(createPageJS, showMessage('watch')));
+    watch('./src/pages/**/*.less', series(createPageCSS, showMessage('watch')));
+    watch('./src/pages/**/*.html', series(createPageHTML, showMessage('watch')));
     watch('./manifest.json', series(createManifest, showMessage('watch')));
   }
   cb();
