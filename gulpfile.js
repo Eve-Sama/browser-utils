@@ -88,11 +88,11 @@ function showMessage(type) {
 function watcher(cb) {
   if (mode === 'development') {
     watch('./dev/content-script/**/*.ts', series(createContentScript, showMessage('watch')));
-    watch('./dev/images/*.*', createImage);
-    watch('./dev/pages/**/*.ts', createPageJS);
-    watch('./dev/pages/**/*.less', createPageCSS);
-    watch('./dev/pages/**/*.html', createPageHTML);
-    watch('./manifest.json', createManifest);
+    watch('./dev/images/*.*', series(createImage, showMessage('watch')));
+    watch('./dev/pages/**/*.ts', series(createPageJS, showMessage('watch')));
+    watch('./dev/pages/**/*.less', series(createPageCSS, showMessage('watch')));
+    watch('./dev/pages/**/*.html', series(createPageHTML, showMessage('watch')));
+    watch('./manifest.json', series(createManifest, showMessage('watch')));
   }
   cb();
 }
