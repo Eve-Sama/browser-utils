@@ -42,7 +42,7 @@
    */
   function calcTabs(): Promise<{ direction: 'left' | 'right' | 'current'; id: number }[]> {
     return new Promise(resolve => {
-      chrome.tabs.query({}, res => {
+      chrome.tabs.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, res => {
         let isNowLeft = true;
         const tabs = res.map(tab => {
           let direction: 'left' | 'current' | 'right' = isNowLeft ? 'left' : 'right';

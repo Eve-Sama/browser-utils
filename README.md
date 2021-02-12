@@ -23,6 +23,7 @@ Execute `npm run build` There is a few dirrence with `npm run start`, only some 
 
 ### Change log
 
+* **0.0.4:** fix: Close error when open multiple windows
 * **0.0.3:** fix: UI error in firefox
 * **0.0.2:** feat: Set keyboard shortcut Alt+Q
 * **0.0.1:** feat: Publish basic function
