@@ -1,3 +1,5 @@
+[English](README.md) | 简体中文
+
 ### 介绍
 
 本项目是一个浏览器插件, 技术栈为JQuery+TypeScript+Gulp. 其功能为快速关闭浏览器tabs. 有两种方式触发入口, 第一种为点击图标, 

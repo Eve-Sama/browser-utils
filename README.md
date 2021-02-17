@@ -1,3 +1,5 @@
+English | [简体中文](README-zh_CN.md)
+
 ### Introduction
 
 This project is a extension for browser using JQuery + TypeScript + Gulp. It can close tabs quickly. You have 2 ways to open the entry. First one is click icon.
